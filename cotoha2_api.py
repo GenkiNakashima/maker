@@ -47,9 +47,9 @@ class CotohaApi:
         # レスポンスボディからアクセストークンを取得
         self.access_token = res_body["access_token"]
 
-    def keyword(self, sentence):
-        # 構文解析API URL指定
-        url = self.developer_api_base_url + "nlp/v1/keyword"
+    def ne(self, sentence):
+        # 固有表現抽出API URL指定
+        url = self.developer_api_base_url + "nlp/v1/ne"
         # ヘッダ指定
         headers={
             "Authorization": "Bearer " + self.access_token,
@@ -57,16 +57,16 @@ class CotohaApi:
         }
         # リクエストボディ指定
         data = {
-            "document": document
+            "sentence": sentence
         }
         # リクエストボディ指定をJSONにエンコード
         data = json.dumps(data).encode()
         # リクエスト生成
         req = urllib.request.Request(url, data, headers)
-        print(req)
         # リクエストを送信し、レスポンスを受信
         try:
             res = urllib.request.urlopen(req)
+             # レスポンスボディ取得
             res_body = res.read()
         # レスポンスボディをJSONからデコード
             res_body = json.loads(res_body)
@@ -88,7 +88,7 @@ class CotohaApi:
         
 
 
-def anaume(text):
+if __name__ == '__main__':
     # ソースファイルの場所取得
     APP_ROOT = os.path.dirname(os.path.abspath( __file__)) + "/"
 
@@ -103,16 +103,12 @@ def anaume(text):
     # COTOHA APIインスタンス生成
     cotoha_api = CotohaApi(CLIENT_ID, CLIENT_SECRET, DEVELOPER_API_BASE_URL, ACCESS_TOKEN_PUBLISH_URL)
 
-    # キーワード抽出対象文
-    #document = 'ついにアラバスタに辿り着いたルフィ達は、B・Wの扇動によって間近に迫った大反乱を防ぐため奔走する。反乱軍を説得するため反乱軍の本拠地がある町ユバに向かうが、すでに反乱軍は本拠地を移していた。ルフィの提案で反乱軍の制止ではなく、アラバスタの反乱を煽りたてた張本人であるB・W社社長にして王下七武海の一角サー・クロコダイルがいるレインベースに乗り込む。しかし、クロコダイルが発動した「ユートピア作戦」によりアラバスタ国民の暴動はさらに加速してしまう。ルフィはクロコダイルに挑むが、彼の圧倒的な力の前に敗れてしまう。首都アルバーナにて国王軍と反乱軍が衝突する最中、ゾロ達はオフィサーエージェントを撃破。そして、復活を遂げたルフィがアルバーナに到着しサイバイマン'
-    # キーワード抽出 API 実行
-    result = cotoha_api.keyword(text)
-    word_list=[]
-    for i in range(5):
-        word_list.append(result["result"][i]["form"])
-    #print(word_list)
+    # 固有表現抽出対象文
+    sentence = 'ついにアラバスタに辿り着いたルフィ達は、B・Wの扇動によって間近に迫った大反乱を防ぐため奔走する。反乱軍を説得するため反乱軍の本拠地がある町ユバに向かうが、すでに反乱軍は本拠地を移していた。ルフィの提案で反乱軍の制止ではなく、アラバスタの反乱を煽りたてた張本人であるB・W社社長にして王下七武海の一角サー・クロコダイルがいるレインベースに乗り込む。しかし、クロコダイルが発動した「ユートピア作戦」によりアラバスタ国民の暴動はさらに加速してしまう。ルフィはクロコダイルに挑むが、彼の圧倒的な力の前に敗れてしまう。首都アルバーナにて国王軍と反乱軍が衝突する最中、ゾロ達はオフィサーエージェントを撃破。そして、復活を遂げたルフィがアルバーナに到着しサイバイマン孫悟空'
 
-    
-    return text.replace(word_list[0],'(  1  )').replace(word_list[1],'(  2  )').replace(word_list[2],'(  3  )').replace(word_list[3],'(  4  )').replace(word_list[4],'(  5  )')
+    # 固有表現抽出 API 実行
+    result = cotoha_api.ne(sentence)
 
-print(anaume(input()))
+    # 結果表示
+    result_formated = json.dumps(result, indent=4, separators=(',', ': '))
+    print (codecs.decode(result_formated, 'unicode-escape'))
