@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+
+
+<head>
+    <meta charset="utf-8">
+    <!-- cssファイルの読み込み -->
+    <link rel=stylesheet href="static/css/style.css">
+    
+    <title>Testmaker</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1><a href='/'>TESTMAKER</a></h1>
+        </div>
+
+        <nav class="menu">
+            <ul>
+                <a href="/ana1">穴埋め問題</a>
+                <a href="/">一問一答問題</a>
+            </ul>
+        </nav>
+    </header>
+<!-- templateの継承部分 -->
+    {% block content %}
+    {% endblock %}
+<!-------------------->
+    <footer>
+        <div class="footer_logo">©︎ Genki Nakashima testmaker</div>
+    </footer>
+</body>
+</html>
