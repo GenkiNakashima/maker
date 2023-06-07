@@ -4,6 +4,7 @@ import json
 import configparser
 import codecs
 
+
 class CotohaApi:
     # 初期化
     def __init__(self, client_id, client_secret, developer_api_base_url, access_token_publish_url):
@@ -57,7 +58,7 @@ class CotohaApi:
         }
         # リクエストボディ指定
         data = {
-            "document": document
+           "document": sentence
         }
         # リクエストボディ指定をJSONにエンコード
         data = json.dumps(data).encode()
@@ -88,7 +89,9 @@ class CotohaApi:
         
 
 
-def anaume(text):
+def anaume(document):
+   
+       
     # ソースファイルの場所取得
     APP_ROOT = os.path.dirname(os.path.abspath( __file__)) + "/"
 
@@ -106,13 +109,12 @@ def anaume(text):
     # キーワード抽出対象文
     #document = 'ついにアラバスタに辿り着いたルフィ達は、B・Wの扇動によって間近に迫った大反乱を防ぐため奔走する。反乱軍を説得するため反乱軍の本拠地がある町ユバに向かうが、すでに反乱軍は本拠地を移していた。ルフィの提案で反乱軍の制止ではなく、アラバスタの反乱を煽りたてた張本人であるB・W社社長にして王下七武海の一角サー・クロコダイルがいるレインベースに乗り込む。しかし、クロコダイルが発動した「ユートピア作戦」によりアラバスタ国民の暴動はさらに加速してしまう。ルフィはクロコダイルに挑むが、彼の圧倒的な力の前に敗れてしまう。首都アルバーナにて国王軍と反乱軍が衝突する最中、ゾロ達はオフィサーエージェントを撃破。そして、復活を遂げたルフィがアルバーナに到着しサイバイマン'
     # キーワード抽出 API 実行
-    result = cotoha_api.keyword(text)
+    result = cotoha_api.keyword(document)
     word_list=[]
     for i in range(5):
         word_list.append(result["result"][i]["form"])
     #print(word_list)
 
     
-    return text.replace(word_list[0],'(  1  )').replace(word_list[1],'(  2  )').replace(word_list[2],'(  3  )').replace(word_list[3],'(  4  )').replace(word_list[4],'(  5  )')
+    return document.replace(word_list[0],'(  1  )').replace(word_list[1],'(  2  )').replace(word_list[2],'(  3  )').replace(word_list[3],'(  4  )').replace(word_list[4],'(  5  )')
 
-print(anaume(input()))

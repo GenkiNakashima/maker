@@ -51,3 +51,18 @@ footer {
   font-size: 15px;
   color: #fff;
 }
+
+.content {
+  position: relative;
+  background: rgb(215, 228, 75);
+  height: 1000px;
+}
+.content1{
+  display: flex;
+  justify-content: center;
+}
+
+.content2{
+  display: flex;
+  justify-content: center;
+}

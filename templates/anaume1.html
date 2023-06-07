@@ -5,11 +5,26 @@
     <title>Index</title>
     <meta charset="utf-8"/>
 </head>
-<body>
 
-    <h1>anaume1</h1>
-    <p>This is Flask sample.</p>
-    <a href="/ana2">実行</a>
+
+<body>
+    <div class="content">
+        <br>
+        <br>
+        <h1>穴埋め問題生成ページ</h1>
+        <br>
+        <p>テキストを入力してください</p>
+        <form action="/ana1" method="POST">
+            <div class="content1">
+                <textarea name="input_text" maxlength="330" cols="60" rows="15"></textarea>
+            </div> 
+                <div class="content2">  
+                    <h5>※字数制限（最大330文字）</h5>
+                    <input type="submit" value="実行">
+                </div>
+        </form>
+    </div>
+   
 </body>
 </html>
 {% endblock %}
