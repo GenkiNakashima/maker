@@ -107,14 +107,14 @@ def anaume(document):
     cotoha_api = CotohaApi(CLIENT_ID, CLIENT_SECRET, DEVELOPER_API_BASE_URL, ACCESS_TOKEN_PUBLISH_URL)
 
     # キーワード抽出対象文
-    #document = 'ついにアラバスタに辿り着いたルフィ達は、B・Wの扇動によって間近に迫った大反乱を防ぐため奔走する。反乱軍を説得するため反乱軍の本拠地がある町ユバに向かうが、すでに反乱軍は本拠地を移していた。ルフィの提案で反乱軍の制止ではなく、アラバスタの反乱を煽りたてた張本人であるB・W社社長にして王下七武海の一角サー・クロコダイルがいるレインベースに乗り込む。しかし、クロコダイルが発動した「ユートピア作戦」によりアラバスタ国民の暴動はさらに加速してしまう。ルフィはクロコダイルに挑むが、彼の圧倒的な力の前に敗れてしまう。首都アルバーナにて国王軍と反乱軍が衝突する最中、ゾロ達はオフィサーエージェントを撃破。そして、復活を遂げたルフィがアルバーナに到着しサイバイマン'
+    #document = 'スピンオフ作品「ジョジョの奇妙な冒険 クレイジー・Dの悪霊的失恋」2巻といった関連書籍も発売され'
     # キーワード抽出 API 実行
     result = cotoha_api.keyword(document)
+    
     word_list=[]
-    for i in range(5):
+    for i in range(len(result["result"])):
         word_list.append(result["result"][i]["form"])
-    #print(word_list)
+     #print(word_list)
 
     
-    return document.replace(word_list[0],'(  1  )').replace(word_list[1],'(  2  )').replace(word_list[2],'(  3  )').replace(word_list[3],'(  4  )').replace(word_list[4],'(  5  )')
-
+    return ''.join([document.replace(word, '(  ' + str(i+1) + '  )') for i, word in enumerate(word_list)])

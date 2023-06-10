@@ -87,8 +87,7 @@ class CotohaApi:
 
         
 
-
-if __name__ == '__main__':
+def anaumeoni(sentence):
     # ソースファイルの場所取得
     APP_ROOT = os.path.dirname(os.path.abspath( __file__)) + "/"
 
@@ -104,11 +103,14 @@ if __name__ == '__main__':
     cotoha_api = CotohaApi(CLIENT_ID, CLIENT_SECRET, DEVELOPER_API_BASE_URL, ACCESS_TOKEN_PUBLISH_URL)
 
     # 固有表現抽出対象文
-    sentence = 'ついにアラバスタに辿り着いたルフィ達は、B・Wの扇動によって間近に迫った大反乱を防ぐため奔走する。反乱軍を説得するため反乱軍の本拠地がある町ユバに向かうが、すでに反乱軍は本拠地を移していた。ルフィの提案で反乱軍の制止ではなく、アラバスタの反乱を煽りたてた張本人であるB・W社社長にして王下七武海の一角サー・クロコダイルがいるレインベースに乗り込む。しかし、クロコダイルが発動した「ユートピア作戦」によりアラバスタ国民の暴動はさらに加速してしまう。ルフィはクロコダイルに挑むが、彼の圧倒的な力の前に敗れてしまう。首都アルバーナにて国王軍と反乱軍が衝突する最中、ゾロ達はオフィサーエージェントを撃破。そして、復活を遂げたルフィがアルバーナに到着しサイバイマン孫悟空'
+    #sentence = 'ついにアラバスタに辿り着いたルフィ達は、B・Wの扇動によって間近に迫った大反乱を防ぐため奔走する。反乱軍を説得するため反乱軍の本拠地がある町ユバに向かうが、すでに反乱軍は本拠地を移していた。ルフィの提案で反乱軍の制止ではなく、アラバスタの反乱を煽りたてた張本人であるB・W社社長にして王下七武海の一角サー・クロコダイルがいるレインベースに乗り込む。しかし、クロコダイルが発動した「ユートピア作戦」によりアラバスタ国民の暴動はさらに加速してしまう。ルフィはクロコダイルに挑むが、彼の圧倒的な力の前に敗れてしまう。首都アルバーナにて国王軍と反乱軍が衝突する最中、ゾロ達はオフィサーエージェントを撃破。そして、復活を遂げたルフィがアルバーナに到着しサイバイマン孫悟空'
 
     # 固有表現抽出 API 実行
     result = cotoha_api.ne(sentence)
+    word_list=[]
+    for i in range(len(result["result"])):
+        word_list.append(result["result"][i]["form"])
+    
 
-    # 結果表示
-    result_formated = json.dumps(result, indent=4, separators=(',', ': '))
-    print (codecs.decode(result_formated, 'unicode-escape'))
+    return ''.join([document.replace(word, '(  ' + str(i+1) + '  )') for i, word in enumerate(word_list)])
+

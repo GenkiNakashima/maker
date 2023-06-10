@@ -37,7 +37,7 @@ a {
 }
 
 header a {
-  color: #ed5365;
+  color: #5377ed;
   font-weight: bold;
 }
 
@@ -65,4 +65,25 @@ footer {
 .content2{
   display: flex;
   justify-content: center;
+}
+
+#first-block{
+  background-image: url("../images/Desktop5.jpg");
+  margin-left : 150px ;
+  width: 80%;
+  height: 900px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  display: block;
+}
+
+#second-block{
+  background-image: url("../images/Desktop4.jpg");
+  width: 80%;
+  height: 900px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  display: block;
 }
